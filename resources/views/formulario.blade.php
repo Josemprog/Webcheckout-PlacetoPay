@@ -24,7 +24,7 @@
 
         <h1 class="mt-4 mb-5">Connection with webcheckout</h1>
 
-        <div class="border border-dark p-3 rounded w-75">
+        <div class="border border-dark p-3 mb-5 rounded w-75">
             <div class="row">
                 <div class="col">
                     <h4 class="text-primary">Enter the data to make the payment</h4>
@@ -33,10 +33,14 @@
                         <div class="form-group">
                             <label for="inputReference">Reference</label>
                             <input type="text" name="reference" class="form-control" id="inputReference" required>
+                            <small class="form-text text-muted">The reference can be the current
+                                date</small>
                         </div>
                         <div class="form-group">
                             <label for="inputDescription">Description</label>
                             <textarea class="form-control" name="description" id="inputDescription" required></textarea>
+                            <small class="form-text text-muted">Enter a short description of the
+                                payment</small>
                         </div>
                         <div class="form-group">
                             <label for="inputCurrency">Currency</label>
@@ -49,8 +53,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputTotal">Valor a pagar</label>
-                            <input type="text" name="total" class="form-control" id="inputTotal" required>
+                            <label for="inputAmount">Amount</label>
+                            <input type="text" name="amount" class="form-control" id="inputAmount" required>
+                            <small class="form-text text-muted">The amount to be paid must be greater
+                                than 10,000 Colombian pesos</small>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Pagar</button>
                     </form>
@@ -60,7 +66,7 @@
                     <div class="d-flex flex-column align-items-center">
                         <p class="h1 text-danger pb-3">Rechazado</p>
                         <p class="h4">Invoice number: <span class="text-secondary">01010101010</span></p>
-                        <p class="h4">Referencia: <span class="text-info">53465436356</span></p>
+                        <p class="h4">Referencia: <span class="text-info">2020sep080704</span></p>
                         <p class="h4">Valor de transacción: <span class="text-success">$10.000</span></p>
                         <p class="h4">Tiempo de expiración: <span class="text-primary">5min</span></p>
                     </div>
