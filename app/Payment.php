@@ -14,7 +14,8 @@ class Payment extends Model
     protected $fillable = [
         'reference',
         'description',
-        'currency',
-        'total'
+        'status',
+        'processUrl',
+        'amount',
     ];
 }

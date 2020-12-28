@@ -22,7 +22,7 @@
 
     <div class="mt-3 d-flex flex-column justify-content-center align-items-center ">
 
-        <h1 class="mt-4 mb-5">Connection with webcheckout</h1>
+        {{-- <h1 class="mt-4 mb-5">Connection with webcheckout</h1> --}}
 
         <div class="border border-dark p-3 mb-5 rounded w-75">
             <div class="row">
@@ -62,13 +62,13 @@
                     </form>
                 </div>
                 <div class="col border-left d-flex flex-column align-items-center justify-content-around">
-                    <h1 class="text-primary">Información del Pago </h1>
+                    <h1 class="text-primary">Information of the last payment </h1>
                     <div class="d-flex flex-column align-items-center">
-                        <p class="h1 text-danger pb-3">Rechazado</p>
+                        <p class="h1 text-danger pb-3">Rejected</p>
                         <p class="h4">Invoice number: <span class="text-secondary">01010101010</span></p>
-                        <p class="h4">Referencia: <span class="text-info">2020sep080704</span></p>
-                        <p class="h4">Valor de transacción: <span class="text-success">$10.000</span></p>
-                        <p class="h4">Tiempo de expiración: <span class="text-primary">5min</span></p>
+                        <p class="h4">Reference: <span class="text-info">2020sep080704</span></p>
+                        <p class="h4">Transaction value: <span class="text-success">$10.000</span></p>
+                        <p class="h4">Expiry time: <span class="text-primary">5min</span></p>
                     </div>
                     <form action="{{ route('payment') }}" method="POST">
                         @csrf
