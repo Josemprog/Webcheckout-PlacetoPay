@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Payment;
 use Illuminate\Http\Request;
 use App\Services\PlaceToPayService;
+use App\Http\Requests\PaymentRequest;
 
 class PaymentController extends Controller
 {
@@ -33,13 +34,9 @@ class PaymentController extends Controller
     }
 
     
-    public function pay(Payment $payment, Request $request)
+    public function pay(Payment $payment, PaymentRequest $request)
     {
-        $payment = Payment::create([
-            'reference' => $request->reference,
-            'description' => $request->description,
-            'amount' => $request->amount,
-            ]);
+        $payment = Payment::create($request->validated());
             
         $peticion = $this->p2p->createRequest($payment);
             

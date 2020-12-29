@@ -24,7 +24,7 @@
 
         {{-- <h1 class="mt-4 mb-5">Connection with webcheckout</h1> --}}
 
-        <div class="border border-dark p-3 mb-5 rounded w-75">
+        <div class="border p-3 m-5 rounded w-75">
             <div class="row">
                 <div class="col">
                     <h4 class="text-primary">Enter the data to make the payment</h4>
@@ -32,13 +32,19 @@
                         @csrf
                         <div class="form-group">
                             <label for="inputReference">Reference</label>
-                            <input type="text" name="reference" class="form-control" id="inputReference" required>
+                            <input type="text" name="reference" class="form-control" id="inputReference"
+                                value="{{old('reference')}}">
+                            {!! $errors->first('reference', '<small class="alert alert-danger">:message</small><br>')
+                            !!}
                             <small class="form-text text-muted">The reference can be the current
                                 date</small>
                         </div>
                         <div class="form-group">
                             <label for="inputDescription">Description</label>
-                            <textarea class="form-control" name="description" id="inputDescription" required></textarea>
+                            <textarea class="form-control" name="description"
+                                id="inputDescription"> {{old('description')}}</textarea>
+                            {!! $errors->first('description', '<small class="alert alert-danger">:message</small><br>')
+                            !!}
                             <small class="form-text text-muted">Enter a short description of the
                                 payment</small>
                         </div>
@@ -46,7 +52,7 @@
                             <label for="inputCurrency">Currency</label>
                             <div class="form-check">
                                 <input class="form-check-input" name="currency" type="checkbox" id="defaultCheck1"
-                                    checked disabled required>
+                                    checked disabled>
                                 <label class="form-check-label" for="defaultCheck1">
                                     COP
                                 </label>
@@ -54,9 +60,11 @@
                         </div>
                         <div class="form-group">
                             <label for="inputAmount">Amount</label>
-                            <input type="text" name="amount" class="form-control" id="inputAmount" required>
-                            <small class="form-text text-muted">The amount to be paid must be greater
-                                than 10,000 Colombian pesos</small>
+                            <input type="text" name="amount" class="form-control" id="inputAmount"
+                                value="{{old('amount')}}">
+                            {!! $errors->first('amount', '<small class="alert alert-danger">:message</small><br>')
+                            !!}
+                            <small class="form-text text-muted">The amount to pay must be a whole number</small>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Pagar</button>
                     </form>
