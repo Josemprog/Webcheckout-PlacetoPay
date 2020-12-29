@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PaymentController@index')->name('payment.index');
+Route::post('payment', 'PaymentController@pay')->name('payment.pay');
+
+ Route::post('payment/{payment}', 'PaymentController@retry')->name('payment.retry');
