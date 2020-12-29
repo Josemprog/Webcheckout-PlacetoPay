@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Http;
 
 class PlaceToPayService
 {
-    public const P2P_APPROVED = 'approved';
-    public const P2P_REJECTED = 'rejected';
-    public const P2P_PENDING = 'pending';
-    public const P2P_IN_PROCESS = 'in_process';
-    
     protected $endponitBase;
     protected $login;
     protected $secretKey;

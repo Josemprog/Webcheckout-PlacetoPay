@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col">
                     <h4 class="text-primary">Enter the data to make the payment</h4>
-                    <form action="{{ route('payment') }}" method="POST">
+                    <form action="{{ route('payment.pay') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="inputReference">Reference</label>
@@ -62,18 +62,33 @@
                     </form>
                 </div>
                 <div class="col border-left d-flex flex-column align-items-center justify-content-around">
-                    <h1 class="text-primary">Information of the last payment </h1>
+                    <h1 class="text-primary pl-5">Information of the last payment </h1>
+                    @if (isset($payment))
+                    @if ($payment->status == 'REJECTED' or $payment->status == 'PENDING' )
+                    <p class="h1 text-danger">{{ $payment->status }}</p>
+                    @else
+                    <p class="h1 text-success">{{ $payment->status }}</p>
+                    @endif
                     <div class="d-flex flex-column align-items-center">
-                        <p class="h1 text-danger pb-3">Rejected</p>
-                        <p class="h4">Invoice number: <span class="text-secondary">01010101010</span></p>
-                        <p class="h4">Reference: <span class="text-info">2020sep080704</span></p>
-                        <p class="h4">Transaction value: <span class="text-success">$10.000</span></p>
-                        <p class="h4">Expiry time: <span class="text-primary">5min</span></p>
+                        <p class="h4">Reference: <span class="text-info">{{ $payment->reference }}</span></p>
+                        <p class="h4">Transaction value: <span
+                                class="text-success">${{ number_format($payment->amount) }}</span></p>
+                        <p class="h4">Description: <span class="text-info">{{ $payment->description }}</span></p>
+                        @if ($payment->status == 'REJECTED' or $payment->status == 'FAILED' )
+                        <form class="mt-5" action="{{ route('payment.retry', ['payment' => $payment]) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary btn-lg">Retry</button>
+                        </form>
+                        @endif
                     </div>
-                    <form action="{{ route('payment') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-primary btn-lg">Retry</button>
-                    </form>
+                    @else
+                    <p class="h1 text-muted pb-3">Status</p>
+                    <div class="d-flex flex-column align-items-center">
+                        <p class="h4">Reference</p>
+                        <p class="h4">Transaction value</p>
+                        <p class="h4">Description</p>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

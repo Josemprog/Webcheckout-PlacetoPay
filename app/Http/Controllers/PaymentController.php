@@ -17,19 +17,47 @@ class PaymentController extends Controller
 
     public function index()
     {
+        $payment = Payment::latest()->first();
+        
+        if ($payment) {
+            $paymentInformation = $this->p2p->getInformation($payment->requestId);
+            
+            if ($payment->status == 'pending') {
+                $payment->status = $paymentInformation['status']['status'];
+                $payment->save();
+            }
+
+            return view('formulario')->with(['payment' => $payment]);
+        }
+        return view('formulario');
     }
 
-    public function pay(Request $request)
+    
+    public function pay(Payment $payment, Request $request)
     {
         $payment = Payment::create([
+            'reference' => $request->reference,
             'description' => $request->description,
             'amount' => $request->amount,
-        ]);
-
+            ]);
+            
         $peticion = $this->p2p->createRequest($payment);
-        
+            
         $payment->processUrl = $peticion['processUrl'];
         $payment->requestId = $peticion['requestId'];
+        $payment->status = 'pending';
+        $payment->save();
+            
+        return redirect($payment['processUrl']);
+    }
+
+    public function retry(Payment $payment): \Illuminate\Http\RedirectResponse
+    {
+        $paymentRetry = $this->p2p->createRequest($payment);
+
+        $payment->processUrl = $paymentRetry['processUrl'];
+        $payment->requestId = $paymentRetry['requestId'];
+        $payment->status = 'pending';
         $payment->save();
 
         return redirect($payment['processUrl']);
